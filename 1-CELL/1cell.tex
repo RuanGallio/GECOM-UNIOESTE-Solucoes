@@ -1,0 +1,472 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage{latexsym,amssymb,amsfonts,amsmath}
+%\usepackage[brazilian]{babel}
+% \usepackage[ansinew]{inputenc}
+%\usepackage{tabularx}
+\usepackage{color}
+\usepackage{enumerate}
+%\usepackage{multicol}
+
+% Configuração do tamanho da página e das margens
+\usepackage[a4paper,top=2.5cm,bottom=2cm,left=2.5cm,right=2cm]{geometry}
+
+% Configuração dos parágrafos e do espaçamento
+\setlength{\parindent}{20mm}         % Tabulação da primeira linha em cada parágrafo
+\setlength{\parskip}{0.5\baselineskip} %Distância entre parágrafos
+\renewcommand{\baselinestretch}{1.3}   % Espaçamento do texto (simples, duplo, 1.5, etc...)
+
+
+\pagenumbering{arabic}
+
+
+\newcounter{execount}  \setcounter{execount}{1}
+\newcommand{\newexe}{ \vspace{\baselineskip} \hrule  \vspace{.5\baselineskip} \noindent {\bfseries
+\arabic{execount}.} \addtocounter{execount}{1} }
+
+
+\DeclareMathOperator{\sen}{sen} %
+\DeclareMathOperator{\arcsen}{arcsen}
+
+
+
+\allowdisplaybreaks
+
+\newenvironment{solucao}{ \vspace{.5\baselineskip} \renewcommand{\baselinestretch}{1}
+                           \noindent {\bfseries Solução:} }
+                        { \vspace{.5\baselineskip} \renewcommand{\baselinestretch}{1.2}
+                           \hfill {\small $\blacksquare$} }
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+
+\centerline{ {\Large Solução da Competição Elon Lages Lima (2021)} }
+
+\vspace{\baselineskip}
+
+
+
+\newexe Seja
+$$ A = \left( \begin{array}{cccc} 1 & 2 & \dots & 1000 \\ 1001 & 1002 & \dots & 2000 \\ \vdots & \ddots & \vdots & \\ 999001 & 999002 & \dots & 1000^{2} \end{array} \right) $$
+Escolha qualquer entrada e a denote por $x_{1}$. Em seguida, apague a linha e coluna contendo $x_{1}$ para obtermos uma
+matriz $999 \times 999$. Então escolha qualquer entrada e a denote por $x_{2}$. Apague a linha e a coluna contento
+$x_{2}$ para obter uma matriz $998 \times 998$. Realize esta operação 1000 vezes. Determine o valor da soma
+$$ x_{1} + x_{2} + \dots + x_{1000}. $$
+
+\begin{solucao}
+    Notemos que $A = (a_{ij})_{1000 \times 1000}$, com $a_{ij} = 1000(i-1) + j$ para $1 \leq i, j \leq 1000$. Ao denotar
+    $x_{k} = a_{ij}$ e eliminar as $k$-ésimas linha e coluna da matriz, estamos colocando exatamente um $x_{k}$ em cada
+    linha e em cada coluna da matriz. Ao somar todos estes $x_{k}$ estamos somando exatamente $a_{kj}$ para todos $1 \leq j
+        \leq 1000$ ou estamos somando $a_{ik}$ para todos $1 \leq i \leq 1000$.
+
+    A soma portanto pode ser obtida por
+    \begin{align*}
+        \sum_{k=1}^{1000} x_{k} & = \sum_{k=1}^{1000} a_{kj}                                                \\
+                                & = \sum_{k=1}^{1000} 1000(k-1) + j                                         \\
+                                & = \sum_{k=1}^{1000} 1000k - \sum_{k=1}^{1000} 1000 + \sum_{k=1}^{1000} j.
+    \end{align*}
+    Mas note que a soma de todos os $j$ é exatamente $\frac{1001 \cdot 1000}{2}$ e portanto
+    \begin{align*}
+        \sum_{k=1}^{1000} x_{k} & = \sum_{k=1}^{1000} 1000k - \sum_{k=1}^{1000} 1000 + \sum_{k=1}^{1000} j                                              \\
+                                & = 1000 \frac{1001 \cdot 1000}{2} - 1000 \cdot 1000 + \frac{1001 \cdot 1000}{2}                                        \\
+                                & = 1000 \frac{1000 \cdot 1000}{2} + 1000 \frac{1000}{2} - 1000 \cdot 1000 + \frac{1000 \cdot 1000}{2} + \frac{1000}{2} \\
+                                & = 1000 \frac{1000 \cdot 1000}{2} + \frac{1000}{2} = \frac{1000^{3}+1000}{2}.
+    \end{align*}
+
+    De forma similar,
+    \begin{align*}
+        \sum_{k=1}^{1000} x_{k} & = \sum_{k=1}^{1000} a_{ik}                                                \\
+                                & = \sum_{k=1}^{1000} 1000(i-1) + k                                         \\
+                                & = \sum_{k=1}^{1000} 1000i - \sum_{k=1}^{1000} 1000 + \sum_{k=1}^{1000} k.
+    \end{align*}
+    Neste caso, a soma de todos os $i$ é também $\frac{1001 \cdot 1000}{2}$ e portanto
+    \begin{align*}
+        \sum_{k=1}^{1000} x_{k} & = \sum_{k=1}^{1000} 1000i - \sum_{k=1}^{1000} 1000 + \sum_{k=1}^{1000} k                                              \\
+                                & = 1000 \frac{1001 \cdot 1000}{2} - 1000 \cdot 1000 + \frac{1001 \cdot 1000}{2}                                        \\
+                                & = 1000 \frac{1000 \cdot 1000}{2} + 1000 \frac{1000}{2} - 1000 \cdot 1000 + \frac{1000 \cdot 1000}{2} + \frac{1000}{2} \\
+                                & = 1000 \frac{1000 \cdot 1000}{2} + \frac{1000}{2} = \frac{1000^{3}+1000}{2}.
+    \end{align*}
+\end{solucao}
+
+
+\newexe Quantos termos racionais existem na expansão binomial de
+$$ (\sqrt[3]{2} + \sqrt{6})^{100} ? $$
+
+\begin{solucao}
+    Como
+    $$ (\sqrt[3]{2} + \sqrt{6})^{100} = \sum_{j=0}^{100} \binom{100}{j} \sqrt[3]{2^{j}} \sqrt{6^{100-j}}, $$
+    então basta contar quantos índices $j \in \{0, 1, 2, \dots, 100\}$ são múltiplos de 3, de forma que $100 - j$ é par
+    (múltiplo de 2). Para que $100 - j$ seja par, então $j$ deve ser par também, e portanto basta saber quantos índices $j
+        \in \{0, 1, 2, \dots, 100\}$ são múltiplos de 6. São eles
+    $$ j \in \{0, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 96 \}, $$
+    e portanto um total de $17$ termos.
+\end{solucao}
+
+
+\newexe Seja $f : \{ 1, 2, \dots \} \to \mathbb{R}$ uma função tal que $f(n) - f(n+1) =
+    f(n)f(n+1)$ para todo $n \geq 1$. Sabendo que $f(2020) = \frac{1}{4040}$, o valor de $f(1)$ é:
+
+\begin{solucao}
+    Da igualdade $f(n) - f(n+1) = f(n)f(n+1)$ válida para todo $n \geq 1$, obtemos a expressão
+    $$ f(n) = \frac{f(n+1)}{1-f(n+1)}, $$
+    para todo $n \geq 1$, desde que $f(n+1) \neq 1$. Além disso, se $f(n) = \frac{1}{k}$ para algum $k \in \mathbb{N}$,
+    então
+    $$ f(n-1) = \frac{f(n)}{1-f(n)} = \frac{\frac{1}{k}}{1-\frac{1}{k}} = \frac{1}{k-1}. $$
+
+    Por recursividade, podemos ver que, se $f(n) = \frac{1}{k}$, então
+    $$ f(n-j) = \frac{1}{k-j}. $$
+
+    Aplicando então as igualdades obtidas, com $n = 2020$, $k = 4040$ e $j = 2019$, obtemos
+    $$ f(1) = f(n-j) = \frac{1}{4040 - 2019} = \frac{1}{2021}. $$
+\end{solucao}
+
+
+
+\newexe Considere a sequência $a_{n}$ definida por $a_{1} = 2$ e para todo $n \in \mathbb{N}$,
+$$ a_{n+1} = (a_{n})^{2} + 6a_{n} + 6. $$
+Determine o resto de $a_{100}$ na divisão por $7$.
+
+\begin{solucao}
+    Determinar o resto da divisão de $a_{100}$ por $7$ significa determinar a congruência de
+    $a_{100}$ módulo $7$. Sabemos que se $x \equiv r_{1} \mod 7$ e $y \equiv r_{2} \mod 7$, então
+    $$ (x+y) \equiv (r_{1} + r_{2}) \mod 7 \qquad \text{e} \qquad (xy) \equiv (r_{1}r_{2}) \mod 7. $$
+
+    Desta forma,
+    \begin{align*}
+        a_{1} & \equiv 2 \mod 7                                           \\
+        a_{2} & \equiv (2^{2} + 6 \cdot 2 + 6) \equiv 22 \equiv 1 \mod 7  \\
+        a_{3} & \equiv (1^{2} + 6 \cdot 1 + 6) \equiv 13 \equiv 6 \mod 7  \\
+        a_{4} & \equiv (6^{2} + 6 \cdot 6 + 6) \equiv 78 \equiv 1 \mod 7.
+    \end{align*}
+
+    A partir daí as equivalências se repetem pois já usamos no processo a equivalência $1$ módulo
+    $7$. Teremos portanto que $a_{n} \equiv 1 \mod 7$ quando $n$ é par e $a_{n} \equiv 6 \mod 7$
+    quando $n$ é ímpar.
+
+    Segue que $a_{100} \equiv 1 \mod 7$, isto é, o resto da divisão de $a_{100}$ por $7$ é $1$.
+\end{solucao}
+
+
+
+\newexe Considere o número real, escrito em notação decimal,
+$$ r = 0,235831\dots $$
+em que, a partir da terceira casa decimal após a vírgula, todo dígito é igual ao resto na
+divisão por $10$ da soma dos dois dígitos anteriores. Podemos afirmar que
+
+
+
+\newexe Considere a sequência $a_{n}$ definida por $a_{1} = 337$ e, para $n > 1$,
+$$ a_{n} = \frac{n^{2}}{n^{2}+ n - 2} a_{n-1}. $$
+Determine $\lim\limits_{n \to \infty}(2020 + n)a_{n}$.
+
+\begin{solucao}
+    Notemos que
+    $$ a_{n} = \frac{n^{2}}{n^{2}+ n - 2} a_{n-1} = \frac{n n}{(n + 2)(n - 1)} a_{n-1} $$
+    para todo $n > 1$ e assim,
+    \begin{align*}
+        a_{n} & = \frac{n n}{(n + 2)(n - 1)} \cdot \frac{(n-1)(n-1)}{(n + 1)(n - 2)} \cdot \frac{(n-2)(n-2)}{n(n - 3)}                                                                                                                                                                       \\
+              & \qquad \qquad \cdot \frac{(n-3)(n-3)}{(n - 1)(n - 4)} \cdot \frac{(n-4)(n-4)}{(n - 2)(n - 5)} \cdots \frac{6 \cdot 6}{8 \cdot 5} \cdot \frac{5 \cdot 5}{7 \cdot 4}\cdot \frac{4 \cdot 4}{6 \cdot 3}\cdot \frac{3 \cdot 3}{5 \cdot 2}\cdot \frac{2 \cdot 2}{4 \cdot 1} a_{1}.
+    \end{align*}
+
+    Portanto, após as simplificações, obtemos
+    $$ a_{n} = \frac{n}{(n+2)(n+1)} \cdots 3 \cdot 2 a_{1}. $$
+
+    Segue que
+    $$ \lim_{n \to \infty} na_{n} = \frac{nn}{(n+2)(n+1)} \cdots 3 \cdot 2 a_{1} = 6a_{1}, $$
+    e
+    $$ \lim_{n \to \infty} 2020a_{n} = \frac{2020n}{(n+2)(n+1)} \cdots 3 \cdot 2 a_{1} = 0, $$
+    e portanto
+    $$ \lim_{n \to \infty} (2020+n)a_{n} = 6a_{1} = 6 \cdot 337 =  2022. $$
+\end{solucao}
+
+
+
+\newexe Encontre o valor de
+$$ \int_{0}^{1} \left( \sum_{k=0}^{\infty} (x^{3k+1} - x^{3k+2}) \right) dx. $$
+
+\begin{solucao}
+    Primeiro notemos que
+    $$ \sum_{k=0}^{\infty} (x^{3k+1} - x^{3k+2})
+        = \sum_{k=0}^{\infty} (1-x) x^{3k+1}
+        = (1-x) \sum_{k=0}^{\infty} x^{3k+1} $$
+    e como $x \in (0,1)$, então a série resultante é uma série geométrica com razão $x^{3} \in
+        (0,1)$ e portanto convergente. Mais ainda,
+    $$ \sum_{k=0}^{\infty} (x^{3k+1} - x^{3k+2})
+        = (1-x) \sum_{k=0}^{\infty} x^{3k+1} = (1-x) \frac{x}{1-x^{3}} = \frac{x}{1+x+x^{2}}. $$
+
+    Agora resta determinar a integral. Então
+    $$ \int_{0}^{1} \frac{x}{1+x+x^{2}} dx
+        = \int_{0}^{1} \frac{x}{(\frac{1}{2}+x)^{2}+\frac{3}{4}} dx \\
+        = \frac{4}{3} \int_{0}^{1} \frac{x}{(\frac{1}{\sqrt{3}}+ \frac{2}{\sqrt{3}}x)^{2}+1} dx. $$
+
+    Fazendo agora a mudança de variáveis $u = \frac{1}{\sqrt{3}} + \frac{2}{\sqrt{3}}x$ temos que
+    $x = \frac{\sqrt{3}u - 1}{2}$ e também $\frac{du}{dx} = \frac{2}{\sqrt{3}}$. Então
+    \begin{align*}
+        \int_{0}^{1} \frac{x}{1+x+x^{2}} dx
+         & = \frac{4}{3} \int_{0}^{1} \frac{x}{(\frac{1}{\sqrt{3}} + \frac{2}{\sqrt{3}}x)^{2}+1} dx                                                              \\
+         & = \frac{4}{3}\frac{\sqrt{3}}{2} \int_{0}^{1} \frac{x}{(\frac{1}{\sqrt{3}} + \frac{2}{\sqrt{3}}x)^{2}+1} \frac{2}{\sqrt{3}} dx                         \\
+         & = \frac{4}{3}\frac{\sqrt{3}}{2} \int_{\frac{1}{\sqrt{3}}}^{\frac{3}{\sqrt{3}}} \frac{\sqrt{3}u - 1}{2(1+u^{2})} du                                    \\
+         & = \frac{4}{3}\frac{\sqrt{3}}{2} \frac{1}{2} \int_{\frac{1}{\sqrt{3}}}^{\frac{3}{\sqrt{3}}} \frac{\sqrt{3}u}{(1+u^{2})} - \frac{1}{(1+u^{2})}du        \\
+         & = \frac{4}{3}\frac{\sqrt{3}}{2} \frac{1}{2} \left[ \frac{\sqrt{3}}{2} \ln(1+u^{2}) - \arctan u \right]_{\frac{1}{\sqrt{3}}}^{\frac{3}{\sqrt{3}}}      \\
+         & = \frac{\sqrt{3}}{3} \left[ \frac{\sqrt{3}}{2} \ln(1+u^{2}) - \arctan u \right]_{\frac{\sqrt{3}}{3}}^{\sqrt{3}}                                       \\
+         & = \frac{\sqrt{3}}{3} \left[ \frac{\sqrt{3}}{2} \ln(4) - \arctan(\sqrt{3}) - \frac{\sqrt{3}}{2} \ln(\frac{4}{3}) + \arctan(\frac{\sqrt{3}}{3}) \right] \\
+         & = \frac{\sqrt{3}}{3} \left[ \frac{\sqrt{3}}{2} \ln(3) - \frac{\pi}{3} + \frac{\pi}{6} \right]                                                         \\
+         & = \frac{1}{2}\ln(3) - \frac{\pi}{6} \frac{\sqrt{3}}{3}                                                                                                \\
+         & = \frac{\ln 3}{2} - \frac{\sqrt{3} \pi}{18}.                                                                                                          %
+    \end{align*}
+\end{solucao}
+
+
+
+\newexe Calcule $\lim\limits_{x \to \infty} (\sen(\sqrt{x+1}) - \sen(\sqrt{x}))$.
+
+
+
+\newexe Em uma moeda viciada, a probabilidade de se obter cara é $1/5$. Um jogador lança
+sucessivamente esta moeda até obter duas caras consecutivas. Qual é o número esperado de tais
+lançamentos?
+
+
+
+\newexe Seja $f_{1}(x) = x^{2} + 4x + 2$, e para $n \geq 2$, seja $f_{n}(x)$ a $n$-ésima
+composição do polinômio $f_{1}(x)$ consigo mesmo. Por exemplo,
+$$ f_{2}(x) = f_{1}(f_{1}(x)) = x^{4} + 8x^{3} + 24x^{2} + 32x + 14. $$
+Seja $s_{n}$ a soma dos coeficientes dos termos de grau par de $f_{n}(x)$. Por exemplo, $s_{2}
+    = 1 + 24 + 14 = 39$. Encontre o valor de $s_{2020}$.
+
+\begin{solucao}
+    Notemos primeiro que como $f_{n}(x)$ é um polinômio, a soma dos coeficientes pares pode ser
+    obtida por $\frac{f_{n}(1)+f_{n}(-1)}{2}$. No caso,
+    $$ s_{2020} = \frac{f_{2020}(1)+f_{2020}(-1)}{2}. $$
+
+    Agora vamos determinar $f_{2020}(1)$ e $f_{2020}(-1)$. Notemos que, dado qualquer $n \in
+        \mathbb{N}$, temos que
+    \begin{align*}
+        f_{1}(-1) & = -1                                   \\
+        f_{2}(-1) & = f_{1}(f_{1}(-1)) = f_{1}(-1) = -1,   \\
+        f_{3}(-1) & = f_{1}(f_{2}(-1)) = f_{1}(-1) = -1,   \\
+                  & \vdots                                 \\
+        f_{n}(-1) & = f_{1}(f_{n-1}(-1)) = f_{1}(-1) = -1,
+    \end{align*}
+    e reescrevendo $f_{1}(x) = x^{2} + 4x - 2 = (x+2)^{2} - 2$ obtemos
+    \begin{align*}
+        f_{1}(1) & = 3^{2}-2,                                                \\
+        f_{2}(1) & = f_{1}(f_{1}(1)) = f_{1}(3^{2}-2) = 3^{4} - 2,           \\
+        f_{3}(1) & = f_{1}(f_{2}(1)) = f_{1}(3^{4}-2) = 3^{8} - 2,           \\
+                 & \vdots                                                    \\
+        f_{n}(1) & = f_{1}(f_{n-1}(1)) = f_{1}(3^{2^{n-1}}-2) = 3^{2^{n}}-2.
+    \end{align*}
+
+    Segue que
+    $$ s_{2020} = \frac{f_{2020}(1)+f_{2020}(-1)}{2} = \frac{3^{2^{2020}}-2 - 1}{2} = \frac{3^{2^{2020}} - 3}{2}. $$
+\end{solucao}
+
+
+
+\newexe Considere a curva plana $E$ de equação $y^{2} = 4x^{3} - 4x^{2} + 1$ e a função $T : E \to
+    E$ a seguir. Dado um ponto $P \in E$, seja $r$ a reta tangente a $E$ no ponto $P$; se $r$
+intercepta $E$ em dois pontos, defina $T(P) \in E$ como sendo o ponto de interseção distinto
+de $P$, caso contrário defina $T(P) = P$. Sendo $P_{0} = (0, 1)$ e $P_{n+1} = T(P_{n})$ para
+$n \geq 0$, então
+\begin{enumerate}[(a)]
+    \item $P_{2021} = (0,-1)$
+    \item $P_{2021} = (0, 1)$
+    \item $P_{2021} = (1, 1)$
+    \item $P_{2021} = (1/2, \sqrt{2}/2)$
+    \item $P_{2021} = (1,-1)$
+\end{enumerate}
+
+
+\newexe Encontre o número de inteiros positivos $n$ menores que $2020$ tais que o polinômio
+$(x^{4} - 1)^{n} + (x^{2} - x)^{n}$ seja divisível por $x^{5} - 1$.
+
+
+
+\newexe Seja $Q_{8} = \{ \pm 1, \pm i, \pm j, \pm k \}$ o grupo dos quatérnions, cujo produto (não
+comutativo) é determinado pelas equações:
+$$ i^{2} = j^{2} = k^{2} = ijk = -1. $$
+Escolhendo-se aleatoriamente e independentemente dois elementos $a, b \in Q_{8}$ (não
+necessariamente distintos), qual a probabilidade de que $ab = ba$?
+
+\begin{solucao}
+    Notemos que $Q_{8}$ possui 8 elementos e portanto $Q_{8} \times Q_{8}$ possui 64 elementos.
+    Queremos determinar quantos pares $(a,b) \in Q_{8} \times Q_{8}$, dentre os 64, satisfazem $ab
+        = ba$. A igualdade $ab = ba$ ocorrerá em apenas 2 situações: quando $a$ ou $b$ é real (no
+    caso, igual a $\pm 1$) ou quando $b = \pm a$.
+
+    No caso em que $a = 1$ temos $8$ pares $(1,b)$ no conjunto $Q_{8} \times Q_{8}$. No caso $b =
+        1$ temos mais $7$ casos a considerar (já contamos $(1,1)$ antes). Para o caso $a = -1$ temos
+    mais $7$ casos a considerar (já contamos $(-1,1)$ antes). Para o caso $b = -1$ temos mais $6$
+    casos a considerar (já contamos $(1,-1)$ e $(-1,-1)$). São $28$ casos até agora.
+
+    Vamos agora contar os casos $b = \pm a$ claramente com $a \neq \pm 1$ pois já foram contados.
+    Para $a = \pm i$ temos 4 casos $(i, i)$, $(i, -i)$, $(-i,i)$ e $(-i, -i)$. Analogamente $4$
+    casos para $a = \pm j$ e $4$ casos para $a = \pm k$. São $12$ casos aqui e portanto $40$ no
+    total.
+
+    Logo a probabilidade procurada é $\frac{40}{64} = \frac{5}{8}$.
+\end{solucao}
+
+
+
+\newexe Sobre o número $\theta = \cos(2\pi/11)$, podemos afirmar que
+\begin{enumerate}[(a)]
+    \item é raiz do polinômio $8x^{3} + 4x^{2} - 4x - 1$
+    \item é raiz do polinômio $x^{5} + x^{4} + x^{3} + x^{2} + x + 1$
+    \item é raiz do polinômio $32x^{5} + 16x^{4} - 32x^{3} - 12x^{2} + 6x + 1$
+    \item $\theta$ não é algébrico
+    \item é raiz do polinômio $32x^{5} - 26x^{4} + 11x^{3} + 6x^{2} - 1$
+\end{enumerate}
+
+
+
+\newexe Joãozinho escreveu em seu caderno a expressão
+$$ \frac{1}{5} + \frac{1}{6} = \frac{1 + 1}{5 + 6} = \frac{2}{11} $$
+Sua professora disse que a expressão estava errada, ao que Joãozinho retrucou: ``Não se
+estivermos trabalhando no corpo finito $\mathbb{F}_{p}$ com $p$ elementos.'' A afirmação de
+Joãozinho é correta para qual valor de $p$?
+
+
+\newexe Para um inteiro positivo $n$, considere todas as funções não crescentes $f : \{1, 2,
+    \dots, n\} \to \{1, 2, \dots, n\}$. Algumas delas possuem pontos fixos, i.e., admitem $c$ tal
+que $f(c) = c$, enquanto algumas outras não possuem tal propriedade. Determine a diferença
+entre os tamanhos desses dois conjuntos de funções.
+
+
+
+\newexe O valor do limite
+$$ \lim_{x \to 0} \frac{\sen(\tan x) - \tan(\sen x)}{\arcsen(\arctan x) - \arctan(\arcsen x)} $$
+é igual a
+
+\begin{solucao}
+    Como estamos mencionando as funções arco seno e arco tangente, vamos considerar os domínios de
+    definição que fazem as funções seno e tangente bijetoras. Consideramos então a função seno que
+    é bijetora de $(-\frac{\pi}{2}, \frac{\pi}{2})$ em $(-1,1)$ e a função tangente que é bijetora
+    de $(-\frac{\pi}{2}, \frac{\pi}{2})$ em $\mathbb{R}$. Como todas as funções envolvidas no
+    limte são contínuas em $x = 0$, o limite representa uma indeterminação do tipo $\frac{0}{0}$.
+    Usaremos a regra de L'Hôpital. Para isso, colheremos informações sobre as derivadas de todas
+    as funções envolvidas no limite.
+
+    Como $\sen x$ e $\tan x$ são deriváveis nos seus intervalos de definição, temos da regra da
+    cadeia que $f(x) = \tan(\sen x)$ e $g(x) = \sen(\tan x)$ são deriváveis nos seus intervalos de
+    definição, e além disso,
+    $$ f'(x) = \frac{1}{\cos^{2}(\sen(x))} \cos(x), $$
+    e
+    $$ g'(x) = \cos(\tan(x)) \frac{1}{\cos^{2}(x)}. $$
+
+    É claro que $f$ é bijetora e podemos conseguir um intervalo $(-a,a)$ com $a > 0$ de forma que
+    também $g$ seja bijetora. Além disso, $f^{-1}(x) = \arctan(\arcsen x)$ e $g^{-1}(x) =
+        \arcsen(\arctan x)$. Como $f$ e $g$ são deriváveis nos seus intervalos de definição com $f'(x)
+        \neq 0$ e $g'(x) \neq 0$, com as respectivas inversas contínuas, então $f^{-1}$ e $g^{-1}$ são
+    deriváveis, e além disso,
+    $$ (f^{-1})'(x) = \frac{1}{f'(x)} \qquad \text{e} \qquad (g^{-1})'(x) = \frac{1}{g'(x)} = 1. $$
+
+    Portanto
+    \begin{align*}
+        \lim_{x \to 0} \frac{\sen(\tan x) - \tan(\sen x)}{\arcsen(\arctan x) - \arctan(\arcsen x)}
+         & = \lim_{x \to 0} \frac{g(x) - f(x)}{f^{-1}(x) - g^{-1}(x)}               \\
+         & = \lim_{x \to 0} \frac{(g(x) - f(x))'}{(f^{-1}(x) - g^{-1}(x))'}         \\
+         & = \lim_{x \to 0} \frac{g'(x) - f'(x)}{(f^{-1})'(x) - (g^{-1})'(x)}       \\
+         & = \lim_{x \to 0} \frac{g'(x) - f'(x)}{\frac{1}{f'(x)} - \frac{1}{g'(x)}} \\
+         & = \lim_{x \to 0} \frac{g'(x) - f'(x)}{\frac{g'(x) - f'(x)}{f'(x)g'(x)}}  \\
+         & = \lim_{x \to 0} f'(x)g'(x) = f'(0) g'(0) = 1.
+    \end{align*}
+
+
+\end{solucao}
+
+
+
+
+
+
+\newexe Tardigrados, também conhecidos como ursos d'água, são os únicos animais nativos do planeta
+Terra capazes de sobreviver às condições do espaço extraterrestre sem a ajuda de equipamentos
+de que se tem conhecimento (para saber mais, veja por exemplo o artigo na Wikipedia). Neste
+exercício, um tardigrado anda no plano $\mathbb{R}^{2}$, saindo da origem $(0,0)$ e andando 1
+unidade até $(1,0)$; em seguida, ele vira para a esquerda $80^{\circ}$ e anda mais $1/2$
+unidade até $\left( 1 + \frac{\cos 80^{\circ}}{2}, \frac{\sen 80^{\circ}}{2} \right)$; em
+seguida, vira novamente para a esquerda $80^{\circ}$ e anda mais $1/4$ unidade; em seguida,
+vira para a esquerda $80^{\circ}$ novamente e anda mais $1/8$ unidade e assim por diante,
+sempre virando à esquerda $80^{\circ}$ e andando metade da distância que andou na vez
+anterior. Eventualmente ele convergirá a um ponto. Qual?
+
+
+
+\newexe O limite
+$$ \lim_{n \to \infty} \frac{\left( \sum_{k=1}^{n}\frac{1}{k^{1/k}} \right)}{n} $$
+é dado por:
+
+
+
+\newexe Para cada inteiro positivo $n$, seja
+$$ I_{n} = \frac{1}{2} \int_{-\pi/2}^{\pi/2} \sen(2nx)\tan(x) dx. $$
+Se $I_{1} = A$ e $I_{2} = B$, então $I_{2020}$ vale
+
+
+
+\newexe Considere o conjunto de matrizes reais $3 \times 3$ dado por
+$$ T = \left\{ A \in M_{3}(\mathbb{R}) | A^{t}JA = J \right\} $$
+em que $A^{t}$ denota a transposta de $A$ e $J$ é a matriz
+$$ J = \left( \begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{array} \right). $$
+Se $v$ é o vetor $v = (1, 0, 0) \in \mathbb{R}^{3}$, visto como vetor coluna, qual dos
+seguintes itens descreve o subconjunto $\{ A \cdot v \in \mathbb{R}^{3} | A \in T\}$ de
+$\mathbb{R}^{3}$?
+\begin{enumerate}[(a)]
+    \item o hiperboloide $x^{2} + y^{2} - z^{2} = 1$
+    \item a esfera $x^{2} + y^{2} + z^{2} = 1$
+    \item o cilindro $x^{2} + y^{2} = 1$
+    \item o elipsoide $x^{2} + 2y^{2} + 2z^{2} = 1$
+    \item o hiperboloide $x^{2} - 2y^{2} - z^{2} = 1$
+\end{enumerate}
+
+
+\newexe Uma cônica é uma curva em $\mathbb{R}^{2}$ da forma
+$$ \{ (x, y) \in \mathbb{R}^{2} | ax^{2} + bxy + cy^{2} + dx + ey + f = 0 \} $$
+onde $a$, $b$, $c$, $d$, $e$, $f$ não são todos nulos (alguns de seus exemplos são elipses,
+hipérboles e parábolas). São fixados três pontos distintos no plano e duas retas não
+coincidentes. Quantas cônicas, no máximo, contêm os três pontos e são tangentes às duas retas?
+
+
+
+\newexe Qual é o menor grau de um polinômio $p(x)$, mônico e de coeficientes inteiros, de modo que
+$p(n)$ seja múltiplo de $2021$ para todo inteiro positivo $n$?
+
+
+
+\newexe A quantidade de soluções da equação $y^{2} = x^{3}$ (uma curva elíptica singular) em
+$\mathbb{Z}/57\mathbb{Z}$ é igual a:
+
+
+
+\newexe Considere a transformação linear $T : \mathbb{C}^{3} \to \mathbb{C}^{3}$ dada na base
+standard pela matriz
+$$ \left( \begin{array}{ccc} 1/10 & 71/10 & -29/10 \\ 3/2 & -1/2 & 3/2 \\ 7/5 & -18/5 & 22/5 \end{array}\right) $$
+cujo polinômio característico é $p(x) = (x - 3)^{2}(x + 2)$. Seja $V = \{ \mathbf{v} \in
+    \mathbb{C}^{3} | T\mathbf{v} = -2\mathbf{v} \}$ o autoespaço associado ao autovalor $-2$. Qual
+das seguintes transformações lineares $\pi : \mathbb{C}^{3} \to \mathbb{C}^{3}$ é uma projeção
+sobre $V$ (ou seja, $\pi(\mathbb{C}^{3}) = V$ e $\pi^{2} = \pi$)? Aqui, $I : \mathbb{C}^{3}
+    \to \mathbb{C}^{3}$ denota a identidade.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage{latexsym,amssymb,amsfonts,amsmath}
+%\usepackage[brazilian]{babel}
+% \usepackage[ansinew]{inputenc}
+%\usepackage{tabularx}
+\usepackage{color}
+\usepackage{enumitem}
+%\usepackage{multicol}
+
+% Configuração do tamanho da página e das margens
+\usepackage[a4paper,top=2.5cm,bottom=2cm,left=2.5cm,right=2cm]{geometry}
+
+% Configuração dos parágrafos e do espaçamento
+\setlength{\parindent}{20mm}         % Tabulação da primeira linha em cada parágrafo
+\setlength{\parskip}{0.5\baselineskip} %Distância entre parágrafos
+\renewcommand{\baselinestretch}{1.3}   % Espaçamento do texto (simples, duplo, 1.5, etc...)
+
+
+\pagenumbering{arabic}
+
+
+\newcounter{execount}  \setcounter{execount}{1}
+\newcommand{\newexe}{ \vspace{\baselineskip} \hrule  \vspace{.5\baselineskip} \noindent {\bfseries
+\arabic{execount}.} \addtocounter{execount}{1} }
+
+
+\DeclareMathOperator{\sen}{sen} %
+\DeclareMathOperator{\arcsen}{arcsen}
+
+
+
+\allowdisplaybreaks
+
+\newenvironment{solucao}{ \vspace{.5\baselineskip} \renewcommand{\baselinestretch}{1}
+                           \noindent {\bfseries Solução:} }
+                        { \vspace{.5\baselineskip} \renewcommand{\baselinestretch}{1.2}
+                           \hfill {\small $\blacksquare$} }
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+
+\centerline{ {\Large Solução da 44 OBM (2022)} }
+
+\vspace{\baselineskip}
+
+
+\newexe Dado $0 < a < 1$, determine todas as funções f: $\mathbb{R} \to \mathbb{R}$ contínuas em $x=0$
+tais que $f(x) + f(ax) = x, \forall x\in \mathbb{R}$
+
+
+\newexe Considere o conjunto $G$ de matrizes $2 \times 2$ dado por
+\[
+    G = \left\{
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix} | a, b, c, d \in \mathbb{Z}, ad - bc = 1, c \text{ é múltiplo de 3}
+    \right\}
+\]
+e as matrizes em $G$
+\[
+    A = \begin{pmatrix}
+        1 & 1 \\
+        0 & 1
+    \end{pmatrix}
+    \quad B = \begin{pmatrix}
+        -1 & 1 \\
+        -3 & 2
+    \end{pmatrix}.
+\]
+Mostre que qualquer matriz de $G$ pode ser escrita como por um produto $M_1, M_2,\dots, M_r$ com
+$M_i \in \{A, A^{-1}, B, B^{-1}\}$, $\forall i \leq r$.
+
+
+\newexe Seja $(a_{n})_{n\in\mathbb{N}}$ uma sequência de inteiros. Definimos $a^{(0)}_{n} = a_{n}$, para todo $n$ natural. Para todo
+inteiro$ M \geq 0$, definimos $(a^{(M+1)}_{n})_{n\in\mathbb{N}}: a^{(M)}_{n+1} - a^{(M)}_{n}, \forall n \in \mathbb{N}$. E dizemos que $(a_{n})_{n\in\mathbb{N}}$
+é $(M+1)$-autorreferente se existem $k_1$ e $k_2$ naturais fixados, tais que $a_{n+k_{1}}=a^{(M+1)}_{n+k_{2}}, \forall n \in \mathbb{N} $.
+\begin{enumerate}[label=\alph*)]
+    \item Existe uma sequência de inteiros tal que o menor $M$ para o qual ela é$ M$-autorreferente é
+          $M = 2022$?
+
+    \item Existe uma sequência estritamente crescente de inteiros positivos tal que o menor $M$ para o qual
+          ela é $M$-autorreferente é $M = 2022$?
+\end{enumerate}
+
+
+\newexe Dados $c,a > 0$, considere a sequência $(x_{n})_{n \geq 1}$ definida por $x_1 = c$ e $x_{n+1} = x_{n}e^{-x^{a}_{n}}$ para $n \geq 1$.
+Para quais valores reais de $\beta$ a série $\sum_{n=1}^{\infty} x^{\beta}_{n}$ é convergente?
+
+\begin{solucao}
+    Primeiramente, notemos que, como $e^{r}>0, \forall r \in \mathbb{R}$,  $x_{n} > 0$ para todo $n \geq 1$. Logo, $x^{a}_{n}$ também é positivo para $n \geq 1$, donde $-x^{a}_{n} < 0$.
+
+    Agora, para analizar a convergência, aplicamos o teste da razão, isto é
+    \[
+        \lim_{n\to\infty} \frac{x^{\beta}_{n+1}}{x^{\beta}_{n}} = \lim_{n\to\infty} (\frac{x_{n+1}}{x_{n}})^{\beta},
+    \]
+    onde, substituindo $x_{n+1}$ por sua relação de recorrência, temos
+    \[
+        \lim_{n\to\infty} (\frac{x_{n}e^{-x^{a}_{n}}}{x_{n}})^{\beta} =  \lim_{n\to\infty} (e^{-x^{a}_{n}})^{\beta} = \lim_{n\to\infty} e^{-\beta x^{a}_{n}}.
+    \]
+    Para uma série convergir, é necessário que o limite acima seja menor que 1. Assim, temos que $e^{-\beta x^{a}_{n}} < 1$, donde $-\beta x^{a}_{n} < 0$, ou seja, $\beta > 0$.
+    Finalmente, para $\beta = 0$, note que a série seria a soma de termos constantes iguais a 1, o que diverge. Logo, a série converge para todo $\beta \in \mathbb{R}$ tal que $\beta > 0$.
+
+\end{solucao}
+
+\newexe Dado $X \subset\mathbb{N}$, definimos $d(X)$ como sendo o maior $c\in[0,1]$ tal que, para quaisquer $a<c$ e $n_0 \in \mathbb{N}$,
+existem $m,r\in\mathbb{N}$ com $r > n_0$ e $|X \cap [m, m+r)|/r\geq a$. Sejam $E, F \subset \mathbb{N}$ com $d(E)d(F) > 1/4$.
+Prove que, para qualquer $p$ primo e $k \in \mathbb{N}$, existem $m \in E$ e $n \in F$ com $m \equiv n \pmod{p^k}$.
+
+
+\newexe Seja $p \equiv \pmod{4}$ um número primo, e seja $\theta$ um ângulo tal que $\tan(\theta)$ é racional. Prove que
+$\tan((p+1)\theta)$ é um número racional cujo númerador é múltiplo de $p$, ou seja $\tan((p+1)\theta) = \frac{u}{v}$ com
+$u,v\in\mathbb{Z}, v>0$, mdc$(u,v) = 1$ e $u \equiv 0 \pmod{p}$.
+
+
+\end{document}

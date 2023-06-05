@@ -155,6 +155,19 @@ $$ r = 0,235831\dots $$
 em que, a partir da terceira casa decimal após a vírgula, todo dígito é igual ao resto na
 divisão por $10$ da soma dos dois dígitos anteriores. Podemos afirmar que
 
+\begin{solucao}
+    Como cada algarismos de $r$ depende dos dois que o precedem, logo, como dispomos apenas dos algarismos de 1 à 9,
+    temos uma quantidade finita de combinações possíveis e, portanto, $r$ há de começar a se repetir.
+
+    Calculando o número $r$ a partir de sua regra obtemos
+    $$ r = 0,2358314594370774156178538190998752796516730336954932572910112358314... ,$$
+    donde, apartir do par de dígitos “23”, ocorre a repetição. Como esse par se situa 60 algarismos após a vírgula, o número $10^60 \cdot r$ é dado por:
+    $$ 10^60 \cdot r = 235831459437077415617853819099875279651673033695493257291011,2358314... .$$
+
+    Assim, ao calcularmos $10^60 \cdot r - r$ nos resulta em:
+    $$ 10^60 \cdot r - r = (10^60 - 1) \cdot r = 235831459437077415617853819099875279651673033695493257291011, $$
+    o qual é um número inteiro.
+\end{solucao}
 
 
 \newexe Considere a sequência $a_{n}$ definida por $a_{1} = 337$ e, para $n > 1$,
